@@ -2,20 +2,21 @@
 #include<stdio.h>
 #include<string.h>
 
+
 char checkSum(char * toSend){
-  char checksum = xor(toSend[0], toSend[1]);
+  char checksum = toSend[0] ^ toSend[1];
   for( int i = 1; i < strlen(toSend); i++){
-    checksum = xor(checksum, toSend[i]);
+    checksum = checksum ^ toSend[i];
   }
   return checkSum;
 }
 
 void writeFrame(char *  toSend){
  
-  char laenge = (char) strlen(toSend);
+  int laenge = strlen(toSend);
   //schickt die Laenge des Frames
   writeByte(laenge);
-  
+  printf("Laenge: %i\n", laenge); 
   //schickt den Payload
   for(int i = 0; i < strlen(toSend); i++){
     writeByte(toSend[i]);
@@ -41,11 +42,11 @@ char* readFrame(){
 
 
 void main(void){
-  char send[] = "Hallo ihr da";
+  char send[] = "was los";
+  printf("Laenge1 = %i\n", strlen(send));
+  send[strlen(send)] = 0;
   int check = checkSum(send);
   writeFrame(send);
   printf("Checksumme: %i\n", check);
-  
-
 
 }
