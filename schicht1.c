@@ -10,7 +10,7 @@
 int turn_on = 1, range = 8;
 
 
-void writeByte(char toSend){
+void writeByte(uint8_t toSend){
   int lsr = COM2PORT + 5;
 
   //fordert die Permission an   
@@ -18,11 +18,12 @@ void writeByte(char toSend){
 
   if(((lsr >> 5) & 0x01) == 1 && exit == 0){
     outb(toSend, COM2PORT);
+    printf("writeByte(): sent %d\n", toSend);
   }
 
 }
 
-char readByte(){
+uint8_t readByte(){
   int lsr = COM1PORT + 5;
 
   //fordert die Permission an   
